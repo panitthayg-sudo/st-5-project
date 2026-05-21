@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แบบประเมินความเครียด ST-5</title>
+
+<style>
+
+body{
+    font-family:'Sarabun',sans-serif;
+    background:#f3f4f6;
+    margin:0;
+    padding:20px;
+    color:#1f2937;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.header{
+    padding:40px;
+    background:white;
+}
+
+h1{
+    font-size:55px;
+    margin-bottom:20px;
+    color:#1e293b;
+}
+
+.description{
+    font-size:22px;
+    line-height:1.8;
+    color:#4b5563;
+}
+
+.form-section{
+    padding:35px;
+}
+
+.question-box{
+    margin-bottom:45px;
+}
+
+label.title{
+    display:block;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+input[type=text],
+input[type=number],
+input[type=tel]{
+
+    width:100%;
+    padding:18px;
+    border:2px solid #d1d5db;
+    border-radius:12px;
+    font-size:18px;
+}
+
+.radio-group{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.radio-group label{
+    font-size:20px;
+}
+
+.radio-group input{
+    margin-right:10px;
+    transform:scale(1.4);
+}
+
+button{
+    width:100%;
+    padding:20px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:15px;
+    font-size:24px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result{
+    display:none;
+    margin-top:30px;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+    animation:pop 0.5s ease;
+}
+
+.result h2{
+    font-size:50px;
+}
+
+.result p{
+    font-size:28px;
+}
+
+.low{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.medium{
+    background:#fef9c3;
+    color:#854d0e;
+}
+
+.high{
+    background:#fed7aa;
+    color:#9a3412;
+}
+
+.max{
+    background:#fecaca;
+    color:#991b1b;
+}
+
+.footer{
+    margin-top:25px;
+    padding:25px;
+    background:#f8fafc;
+    border-radius:15px;
+    line-height:2;
+    font-size:20px;
+}
+
+@keyframes pop{
+    from{
+        transform:scale(0.7);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>แบบประเมินความเครียด (ST-5)</h1>
+
+<div class="description">
+
+แบบประเมินความเครียด (ST-5) นี้ จัดทำขึ้นเพื่อประเมินระดับความเครียดของผู้ตอบ
+ในช่วง 2–4 สัปดาห์ที่ผ่านมา โดยให้เลือกคำตอบที่ตรงกับความรู้สึกหรืออาการของตนเองมากที่สุด
+
+<br><br>
+
+0 คะแนน = เป็นน้อยมากหรือแทบไม่มี  
+1 คะแนน = เป็นบางครั้ง  
+2 คะแนน = เป็นบ่อยครั้ง  
+3 คะแนน = เป็นประจำ
+
+</div>
+
+</div>
+
+<div class="form-section">
+
+<!-- อายุ -->
+
+<div class="question-box">
+<label class="title">อายุ</label>
+<input type="number" id="age">
+</div>
+
+<!-- เพศ -->
+
+<div class="question-box">
+
+<label class="title">เพศ</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="gender" value="ชาย"> ชาย</label>
+
+<label><input type="radio" name="gender" value="หญิง"> หญิง</label>
+
+<label><input type="radio" name="gender" value="LGBTQ+"> LGBTQ+</label>
+
+<label><input type="radio" name="gender" value="ไม่ต้องการระบุ"> ไม่ต้องการระบุ</label>
+
+</div>
+
+</div>
+
+<!-- สถานภาพ -->
+
+<div class="question-box">
+
+<label class="title">สถานภาพ</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="status" value="โสด"> โสด</label>
+
+<label><input type="radio" name="status" value="สมรส"> สมรส</label>
+
+<label><input type="radio" name="status" value="หย่าร้าง"> หย่าร้าง</label>
+
+<label><input type="radio" name="status" value="หม้าย"> หม้าย</label>
+
+</div>
+
+</div>
+
+<!-- ระดับการศึกษา -->
+
+<div class="question-box">
+
+<label class="title">ระดับการศึกษา</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="education" value="ประถมศึกษา"> ประถมศึกษา</label>
+
+<label><input type="radio" name="education" value="มัธยมศึกษา"> มัธยมศึกษา</label>
+
+<label><input type="radio" name="education" value="ปวส./ปวช."> ปวส./ปวช.</label>
+
+<label><input type="radio" name="education" value="ปริญญาตรี"> ปริญญาตรี</label>
+
+<label><input type="radio" name="education" value="สูงกว่าปริญญาตรี"> สูงกว่าปริญญาตรี</label>
+
+</div>
+
+</div>
+
+<!-- ประเภทผู้ใช้งาน -->
+
+<div class="question-box">
+
+<label class="title">ประเภทผู้ใช้งาน</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="userType" value="เจ้าหน้าที่"> เจ้าหน้าที่</label>
+
+<label><input type="radio" name="userType" value="อาสาสมัครชุมชน"> อาสาสมัครชุมชน</label>
+
+<label><input type="radio" name="userType" value="ญาติผู้ดูแล"> ญาติผู้ดูแล</label>
+
+<label><input type="radio" name="userType" value="ผู้ป่วย"> ผู้ป่วย</label>
+
+</div>
+
+</div>
+
+<!-- อาชีพ -->
+
+<div class="question-box">
+<label class="title">อาชีพ</label>
+<input type="text" id="job">
+</div>
+
+<!-- เบอร์โทร -->
+
+<div class="question-box">
+<label class="title">เบอร์โทร (ถ้ามี)</label>
+<input type="tel" id="phone">
+</div>
+
+<!-- ST5 ข้อ 1 -->
+
+<div class="question-box">
+
+<label class="title">
+ในช่วง 2–4 สัปดาห์ที่ผ่านมา ท่านมีปัญหาการนอน นอนไม่หลับ หรือหลับมากผิดปกติหรือไม่
+</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="q1" value="0"> เป็นน้อยมากแทบไม่มี</label>
+<label><input type="radio" name="q1" value="1"> เป็นบางครั้ง</label>
+<label><input type="radio" name="q1" value="2"> เป็นบ่อยครั้ง</label>
+<label><input type="radio" name="q1" value="3"> เป็นประจำ</label>
+
+</div>
+
+</div>
+
+<!-- ข้อ 2 -->
+
+<div class="question-box">
+
+<label class="title">
+ในช่วง 2–4 สัปดาห์ที่ผ่านมา ท่านมีสมาธิน้อยลงหรือไม่
+</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="q2" value="0"> เป็นน้อยมากแทบไม่มี</label>
+<label><input type="radio" name="q2" value="1"> เป็นบางครั้ง</label>
+<label><input type="radio" name="q2" value="2"> เป็นบ่อยครั้ง</label>
+<label><input type="radio" name="q2" value="3"> เป็นประจำ</label>
+
+</div>
+
+</div>
+
+<!-- ข้อ 3 -->
+
+<div class="question-box">
+
+<label class="title">
+ในช่วง 2–4 สัปดาห์ที่ผ่านมา ท่านรู้สึกหงุดหงิด กระวนกระวาย หรือว้าวุ่นใจหรือไม่
+</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="q3" value="0"> เป็นน้อยมากแทบไม่มี</label>
+<label><input type="radio" name="q3" value="1"> เป็นบางครั้ง</label>
+<label><input type="radio" name="q3" value="2"> เป็นบ่อยครั้ง</label>
+<label><input type="radio" name="q3" value="3"> เป็นประจำ</label>
+
+</div>
+
+</div>
+
+<!-- ข้อ 4 -->
+
+<div class="question-box">
+
+<label class="title">
+ในช่วง 2–4 สัปดาห์ที่ผ่านมา ท่านรู้สึกเบื่อ เซ็ง หรือไม่อยากทำสิ่งต่าง ๆ หรือไม่
+</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="q4" value="0"> เป็นน้อยมากแทบไม่มี</label>
+<label><input type="radio" name="q4" value="1"> เป็นบางครั้ง</label>
+<label><input type="radio" name="q4" value="2"> เป็นบ่อยครั้ง</label>
+<label><input type="radio" name="q4" value="3"> เป็นประจำ</label>
+
+</div>
+
+</div>
+
+<!-- ข้อ 5 -->
+
+<div class="question-box">
+
+<label class="title">
+ในช่วง 2–4 สัปดาห์ที่ผ่านมา ท่านไม่อยากพบปะผู้คน หรือหลีกเลี่ยงการเข้าสังคมหรือไม่
+</label>
+
+<div class="radio-group">
+
+<label><input type="radio" name="q5" value="0"> น้อยมากแทบไม่มี</label>
+<label><input type="radio" name="q5" value="1"> เป็นบางครั้ง</label>
+<label><input type="radio" name="q5" value="2"> เป็นบ่อยครั้ง</label>
+<label><input type="radio" name="q5" value="3"> เป็นประจำ</label>
+
+</div>
+
+</div>
+
+<button onclick="calculateResult()">
+ประเมินความเครียด
+</button>
+
+<div id="resultBox" class="result"></div>
+
+<div class="footer">
+
+<b>การแปลผล</b><br>
+
+🟢 0–4 คะแนน = เครียดน้อย<br>
+🟡 5–7 คะแนน = เครียดปานกลาง<br>
+🟠 8–9 คะแนน = เครียดมาก<br>
+🔴 10–15 คะแนน = เครียดมากที่สุด
+
+</div>
+
+</div>
+
+</div>
+
+```html id="e1j7na"
+<script>
+
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbybPPoXxTiM9B5KhtwfqURaMTA9K0KvGOL1DU7wX3p6Rbi6-on8mwhn6BO3ng9dk3sD/exec";
+
+function getRadioValue(name){
+
+    const radios = document.getElementsByName(name);
+
+    for(let radio of radios){
+
+        if(radio.checked){
+
+            return radio.value;
+        }
+    }
+
+    return 0;
+}
+
+function calculateResult(){
+
+    let total =
+    parseInt(getRadioValue("q1")) +
+    parseInt(getRadioValue("q2")) +
+    parseInt(getRadioValue("q3")) +
+    parseInt(getRadioValue("q4")) +
+    parseInt(getRadioValue("q5"));
+
+    let resultText = "";
+    let emoji = "";
+    let className = "";
+
+    if(total <= 4){
+
+        resultText = "เครียดน้อย";
+        emoji = "😊🟢";
+        className = "result low";
+
+    }
+
+    else if(total <= 7){
+
+        resultText = "เครียดปานกลาง";
+        emoji = "😐🟡";
+        className = "result medium";
+
+    }
+
+    else if(total <= 9){
+
+        resultText = "เครียดมาก";
+        emoji = "😟🟠";
+        className = "result high";
+
+    }
+
+    else{
+
+        resultText = "เครียดมากที่สุด";
+        emoji = "😭🔴";
+        className = "result max";
+
+    }
+
+    const resultBox = document.getElementById("resultBox");
+
+    resultBox.className = className;
+
+    resultBox.innerHTML = `
+        <h2>${emoji}</h2>
+        <p>คะแนนรวม ${total} คะแนน</p>
+        <p>${resultText}</p>
+    `;
+
+    resultBox.style.display = "block";
+
+    resultBox.scrollIntoView({
+        behavior:'smooth'
+    });
+
+    saveData(total,resultText);
+
+}
+
+function saveData(score,result){
+
+    const data = {
+
+        age:document.getElementById("age").value,
+
+        gender:getRadioValue("gender"),
+
+        status:getRadioValue("status"),
+
+        education:getRadioValue("education"),
+
+        userType:getRadioValue("userType"),
+
+        job:document.getElementById("job").value,
+
+        phone:document.getElementById("phone").value,
+
+        score:score,
+
+        result:result
+
+    };
+
+    fetch(WEB_APP_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify(data)
+
+    })
+
+    .then(res => res.json())
+
+    .then(data => {
+
+        alert("บันทึกข้อมูลสำเร็จ 🎉");
+
+        console.log(data);
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+
+        alert("เกิดข้อผิดพลาด");
+
+    });
+
+}
+
+</script>
+```
+
+
+
+
+</body>
+</html>
