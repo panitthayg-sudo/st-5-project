@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แบบประเมินโรคซึมเศร้า 9Q</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    font-family:'Sarabun',sans-serif;
+    background:#f3f6fb;
+    padding:20px;
+    margin:0;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    color:#1e3a8a;
+}
+
+.subtitle{
+    text-align:center;
+    color:#555;
+    margin-bottom:30px;
+}
+
+.section-title{
+    font-size:22px;
+    color:#1e3a8a;
+    margin-top:30px;
+    margin-bottom:15px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"]{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+    box-sizing: border-box;
+}
+
+.radio-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+.radio-group label{
+    font-weight:normal;
+}
+
+.question-box{
+    background:#f9fafc;
+    border-left:6px solid #2563eb;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+.question-title{
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.options label{
+    font-weight:normal;
+    margin-bottom:10px;
+    display: block;
+    cursor: pointer;
+}
+
+.submit-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#16a34a;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.submit-btn:hover{
+    background:#15803d;
+}
+
+.result-box{
+    display:none;
+    margin-top:30px;
+    background:#eff6ff;
+    padding:20px;
+    border-radius:15px;
+}
+
+.footer{
+    margin-top:30px;
+    text-align:center;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>แบบประเมินโรคซึมเศร้า 9Q</h1>
+
+<p class="subtitle">
+ในช่วง 2 สัปดาห์ที่ผ่านมา รวมทั้งวันนี้ ท่านมีอาการเหล่านี้บ่อยแค่ไหน
+</p>
+
+<form id="assessmentForm">
+
+<div class="section-title">ข้อมูลทั่วไป</div>
+
+<div class="form-group">
+<label>อายุ</label>
+<input type="number" id="age" required>
+</div>
+
+<div class="form-group">
+<label>เพศ</label>
+<div class="radio-group">
+<label><input type="radio" name="gender" value="ชาย" required> ชาย</label>
+<label><input type="radio" name="gender" value="หญิง"> หญิง</label>
+<label><input type="radio" name="gender" value="อื่น ๆ"> อื่น ๆ</label>
+<label><input type="radio" name="gender" value="ไม่ระบุ"> ไม่ระบุ</label>
+</div>
+</div>
+
+<div class="form-group">
+<label>สถานภาพ</label>
+<div class="radio-group">
+<label><input type="radio" name="status" value="โสด" required> โสด</label>
+<label><input type="radio" name="status" value="สมรส"> สมรส</label>
+<label><input type="radio" name="status" value="หย่าร้าง"> หย่าร้าง</label>
+<label><input type="radio" name="status" value="หม้าย"> หม้าย</label>
+</div>
+</div>
+
+<div class="form-group">
+<label>ระดับการศึกษา</label>
+<div class="radio-group">
+<label><input type="radio" name="education" value="ประถมศึกษา" required> ประถมศึกษา</label>
+<label><input type="radio" name="education" value="มัธยมศึกษา"> มัธยมศึกษา</label>
+<label><input type="radio" name="education" value="ปวช./ปวส."> ปวช./ปวส.</label>
+<label><input type="radio" name="education" value="ปริญญาตรี"> ปริญญาตรี</label>
+<label><input type="radio" name="education" value="สูงกว่าปริญญาตรี"> สูงกว่าปริญญาตรี</label>
+</div>
+</div>
+
+<div class="form-group">
+<label>ประเภทผู้ใช้งาน</label>
+<div class="radio-group">
+<label><input type="radio" name="userType" value="เจ้าหน้าที่" required> เจ้าหน้าที่</label>
+<label><input type="radio" name="userType" value="อสม."> อสม.</label>
+<label><input type="radio" name="userType" value="ญาติผู้ดูแล"> ญาติผู้ดูแล</label>
+<label><input type="radio" name="userType" value="ผู้ป่วย"> ผู้ป่วย</label>
+</div>
+</div>
+
+<div class="form-group">
+<label>อาชีพ</label>
+<input type="text" id="job">
+</div>
+
+<div class="form-group">
+<label>เบอร์โทร</label>
+<input type="tel" id="phone">
+</div>
+
+<div class="section-title">แบบประเมิน 9Q</div>
+
+<div id="questions"></div>
+
+<button type="submit" class="submit-btn">
+ส่งแบบประเมิน
+</button>
+
+</form>
+
+<div class="result-box" id="resultBox">
+<h2>ผลการประเมิน</h2>
+<p id="scoreText"></p>
+<p id="resultText"></p>
+<p id="adviceText"></p>
+</div>
+
+<div class="footer">
+ข้อมูลจะถูกเก็บเป็นความลับ
+</div>
+
+</div>
+
+<script>
+// ⚠️ ใส่ URL ของเว็บแอปที่ได้จากการ Deploy ใน Google Apps Script (เวอร์ชันล่าสุด)
+const scriptURL = "https://script.google.com/macros/s/AKfycbydrJ3MTWhqtwh3pvBFxhv2-RT3vXYR2uN9VD-PvaQoBMnu-lhl7FJ_eVo70XJn81ED/exec";
+
+const questions = [
+"เบื่อ ไม่สนใจอยากทำอะไร",
+"ไม่สบายใจ ซึมเศร้า ท้อแท้",
+"หลับยาก หรือหลับ ๆ ตื่น ๆ หรือหลับมากไป",
+"เหนื่อยง่าย หรือไม่ค่อยมีแรง",
+"เบื่ออาหาร หรือกินมากเกินไป",
+"รู้สึกไม่ดีกับตัวเอง คิดว่าตัวเองล้มเหลว หรือทำให้ครอบครัวผิดหวัง",
+"สมาธิไม่ดี เวลาทำอะไร",
+"พูดช้า ทำอะไรช้าลง หรือกระสับกระส่าย",
+"คิดทำร้ายตนเอง หรือคิดว่าถ้าตายไปคงจะดี"
+];
+
+const questionContainer = document.getElementById("questions");
+
+// ทำการสร้างกล่องข้อคำถาม 1-9 พร้อมตั้งค่า 'required' ให้ต้องตอบทุกข้อ
+questions.forEach((q, index) => {
+    questionContainer.innerHTML += `
+    <div class="question-box">
+        <div class="question-title">
+            ${index + 1}. ในช่วง 2 สัปดาห์ที่ผ่านมา ท่าน${q}
+        </div>
+        <div class="options">
+            <label><input type="radio" name="q${index + 1}" value="0" required> ไม่มีเลย</label>
+            <label><input type="radio" name="q${index + 1}" value="1"> เป็นบางวัน</label>
+            <label><input type="radio" name="q${index + 1}" value="2"> เป็นบ่อย</label>
+            <label><input type="radio" name="q${index + 1}" value="3"> เป็นทุกวัน</label>
+        </div>
+    </div>
+    `;
+});
+
+document.getElementById("assessmentForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    let total = 0;
+    const formData = new URLSearchParams();
+
+    // วนลูปเก็บคะแนนรายข้อ 1-9
+    for (let i = 1; i <= 9; i++) {
+        let checked = document.querySelector(`input[name="q${i}"]:checked`);
+        let score = checked ? parseInt(checked.value) : 0;
+        formData.append(`q${i}`, score);
+        total += score;
+    }
+
+    let result = "";
+    let advice = "";
+
+    if (total < 7) {
+        result = "ไม่มีอาการของโรคซึมเศร้า หรือมีอาการระดับน้อยมาก";
+        advice = "ควรดูแลสุขภาพกายและใจอย่างต่อเนื่อง";
+    } else if (total <= 12) {
+        result = "มีอาการของโรคซึมเศร้าระดับน้อย";
+        advice = "ควรพักผ่อน ลดความเครียด";
+    } else if (total <= 18) {
+        result = "มีอาการของโรคซึมเศร้าระดับปานกลาง";
+        advice = "ควรเข้ารับคำปรึกษาจากบุคลากรทางการแพทย์";
+    } else {
+        result = "มีอาการของโรคซึมเศร้าระดับรุนแรง";
+        advice = "ควรพบแพทย์หรือผู้เชี่ยวชาญด้านสุขภาพจิต";
+    }
+
+    // แสดงผลลัพธ์บนหน้าจอ
+    document.getElementById("resultBox").style.display = "block";
+    document.getElementById("scoreText").innerHTML = "<strong>คะแนนรวม :</strong> " + total + " คะแนน";
+    document.getElementById("resultText").innerHTML = "<strong>ผลการประเมิน :</strong> " + result;
+    document.getElementById("adviceText").innerHTML = "<strong>คำแนะนำ :</strong> " + advice;
+
+    // เก็บข้อมูลทั่วไปลงใน formData
+    formData.append("age", document.getElementById("age").value);
+    formData.append("gender", document.querySelector('input[name="gender"]:checked')?.value || "");
+    formData.append("status", document.querySelector('input[name="status"]:checked')?.value || "");
+    formData.append("education", document.querySelector('input[name="education"]:checked')?.value || "");
+    formData.append("userType", document.querySelector('input[name="userType"]:checked')?.value || "");
+    formData.append("job", document.getElementById("job").value);
+    formData.append("phone", document.getElementById("phone").value);
+    formData.append("totalScore", total);
+    formData.append("result", result);
+
+    try {
+        // ยิงข้อมูลเข้าสู่ระบบ Google Apps Script
+        await fetch(scriptURL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData.toString()
+        });
+
+        alert("บันทึกข้อมูลเรียบร้อยแล้ว");
+        document.getElementById("assessmentForm").reset(); // เคลียร์ฟอร์มเมื่อบันทึกเสร็จ
+    } catch (error) {
+        alert("เกิดข้อผิดพลาดด้านเครือข่าย กรุณาลองใหม่อีกครั้ง");
+        console.log(error);
+    }
+});
+</script>
+</body>
+</html>
