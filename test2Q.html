@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แบบคัดกรองโรคซึมเศร้า 2Q</title>
+
+<style>
+    body{
+        font-family: 'Sarabun', sans-serif;
+        background:#f4f4f4;
+        margin:0;
+        padding:20px;
+    }
+
+    .container{
+        max-width:700px;
+        margin:auto;
+        background:#fff;
+        padding:25px;
+        border-radius:15px;
+        box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1{
+        text-align:center;
+        color:#4b2e83;
+    }
+
+    p{
+        color:#555;
+        line-height:1.7;
+    }
+
+    .question{
+        margin-top:25px;
+    }
+
+    label{
+        display:block;
+        margin:10px 0;
+        font-size:18px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select{
+        width:100%;
+        padding:12px;
+        border:1px solid #ccc;
+        border-radius:8px;
+        margin-top:8px;
+        font-size:16px;
+    }
+
+    .radio-group{
+        margin-top:10px;
+    }
+
+    .submit-btn{
+        width:100%;
+        background:#4CAF50;
+        color:white;
+        padding:15px;
+        border:none;
+        border-radius:10px;
+        font-size:20px;
+        margin-top:30px;
+        cursor:pointer;
+    }
+
+    .submit-btn:hover{
+        background:#45a049;
+    }
+
+    .result{
+        margin-top:25px;
+        padding:15px;
+        border-radius:10px;
+        font-size:18px;
+        display:none;
+    }
+
+    .normal{
+        background:#d4edda;
+        color:#155724;
+    }
+
+    .risk{
+        background:#f8d7da;
+        color:#721c24;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>แบบคัดกรองโรคซึมเศร้า 2Q</h1>
+
+<p>
+การแปลผลคำตอบ “ไม่มี” ทั้ง 2 คำถาม ถือว่า ปกติ ไม่เป็นโรคซึมเศร้า
+หากตอบ “มี” ข้อใดข้อหนึ่งหรือทั้ง 2 ข้อ ถือว่าเป็นผู้มีความเสี่ยง
+ควรประเมินต่อด้วยแบบประเมินโรคซึมเศร้า 9Q
+</p>
+
+<form id="depressionForm">
+
+<div class="question">
+<label>อายุ</label>
+<input type="number" id="age" required>
+</div>
+
+<div class="question">
+<label>เพศ</label>
+<div class="radio-group">
+<label><input type="radio" name="gender" value="ชาย" required> ชาย</label>
+<label><input type="radio" name="gender" value="หญิง"> หญิง</label>
+<label><input type="radio" name="gender" value="LGBTQ+"> LGBTQ+</label>
+<label><input type="radio" name="gender" value="ไม่ต้องการระบุ"> ไม่ต้องการระบุ</label>
+</div>
+</div>
+
+<div class="question">
+<label>สถานภาพ</label>
+<div class="radio-group">
+<label><input type="radio" name="status" value="โสด" required> โสด</label>
+<label><input type="radio" name="status" value="สมรส"> สมรส</label>
+<label><input type="radio" name="status" value="หย่าร้าง"> หย่าร้าง</label>
+<label><input type="radio" name="status" value="หม้าย"> หม้าย</label>
+</div>
+</div>
+
+<div class="question">
+<label>ระดับการศึกษา</label>
+<div class="radio-group">
+<label><input type="radio" name="education" value="ประถมศึกษา" required> ประถมศึกษา</label>
+<label><input type="radio" name="education" value="มัธยมศึกษา"> มัธยมศึกษา</label>
+<label><input type="radio" name="education" value="ปวส./ปวช."> ปวส./ปวช.</label>
+<label><input type="radio" name="education" value="ปริญญาตรี"> ปริญญาตรี</label>
+<label><input type="radio" name="education" value="สูงกว่าปริญญาตรี"> สูงกว่าปริญญาตรี</label>
+</div>
+</div>
+
+<div class="question">
+<label>ประเภทผู้ใช้งาน</label>
+<div class="radio-group">
+<label><input type="radio" name="userType" value="เจ้าหน้าที่" required> เจ้าหน้าที่</label>
+<label><input type="radio" name="userType" value="อสม."> อสม.</label>
+<label><input type="radio" name="userType" value="ญาติผู้ดูแล"> ญาติผู้ดูแล</label>
+<label><input type="radio" name="userType" value="ผู้ป่วย"> ผู้ป่วย</label>
+</div>
+</div>
+
+<div class="question">
+<label>อาชีพ</label>
+<input type="text" id="job">
+</div>
+
+<div class="question">
+<label>เบอร์โทร (ถ้ามี)</label>
+<input type="text" id="phone">
+</div>
+
+<div class="question">
+<label>
+1. ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก หดหู่ เศร้า หรือท้อแท้สิ้นหวัง หรือไม่
+</label>
+<div class="radio-group">
+<label><input type="radio" name="q1" value="มี" required> มี</label>
+<label><input type="radio" name="q1" value="ไม่มี"> ไม่มี</label>
+</div>
+</div>
+
+<div class="question">
+<label>
+2. ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก เบื่อ ทำอะไรก็ไม่เพลิดเพลิน หรือไม่
+</label>
+<div class="radio-group">
+<label><input type="radio" name="q2" value="มี" required> มี</label>
+<label><input type="radio" name="q2" value="ไม่มี"> ไม่มี</label>
+</div>
+</div>
+
+<button type="submit" class="submit-btn">ส่งแบบประเมิน</button>
+
+</form>
+
+<div id="result" class="result"></div>
+
+</div>
+
+<script>
+// ⚠️ สำคัญ: นำ URL ของเว็บแอปที่ได้จากการ Deploy เวอร์ชันล่าสุดมาวางแทนที่ตรงนี้
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxHTb414-rHUUJ-IbowywzvqgPbUto4jSRJFz-S5aCpJNC7-oOgbVo8HXWiwsAUOn_M/exec";
+
+document.getElementById("depressionForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+
+    let q1 = document.querySelector('input[name="q1"]:checked').value;
+    let q2 = document.querySelector('input[name="q2"]:checked').value;
+
+    let resultText = "";
+    if(q1 === "ไม่มี" && q2 === "ไม่มี"){
+        resultText = "ปกติ";
+    }else{
+        resultText = "เสี่ยงโรคซึมเศร้า";
+    }
+
+    // เตรียมโครงสร้างข้อมูลเพื่อส่งแบบ Form-Urlencoded (เสถียรและไม่ติดปัญหา CORS)
+    const formData = new URLSearchParams();
+    formData.append("age", document.getElementById("age").value);
+    formData.append("gender", document.querySelector('input[name="gender"]:checked').value);
+    formData.append("status", document.querySelector('input[name="status"]:checked').value);
+    formData.append("education", document.querySelector('input[name="education"]:checked').value);
+    formData.append("userType", document.querySelector('input[name="userType"]:checked').value);
+    formData.append("job", document.getElementById("job").value);
+    formData.append("phone", document.getElementById("phone").value);
+    formData.append("q1", q1);
+    formData.append("q2", q2);
+    formData.append("result", resultText);
+
+    try {
+        // ส่งข้อมูลไปยัง Google Apps Script ด้วยโหมด no-cors เพื่อความปลอดภัยและเสถียร
+        await fetch(WEB_APP_URL, {
+            method: "POST",
+            mode: "no-cors", 
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: formData.toString()
+        });
+
+        // แสดงผลลัพธ์การประเมินบนหน้าจอ
+        let resultBox = document.getElementById("result");
+        resultBox.style.display = "block";
+
+        if(resultText === "ปกติ"){
+            resultBox.className = "result normal";
+            resultBox.innerHTML = "ผลการประเมิน : ปกติ ไม่พบความเสี่ยงโรคซึมเศร้า";
+        } else {
+            resultBox.className = "result risk";
+            resultBox.innerHTML = "ผลการประเมิน : มีความเสี่ยงโรคซึมเศร้า ควรประเมินต่อด้วยแบบประเมิน 9Q";
+        }
+
+        // ล้างข้อมูลในฟอร์มเพื่อให้พร้อมใช้งานในครั้งถัดไป
+        document.getElementById("depressionForm").reset();
+
+    } catch(error){
+        alert("เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง");
+        console.error(error);
+    }
+});
+</script>
+
+</body>
+</html>
