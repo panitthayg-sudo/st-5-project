@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบสอบถามสุขภาพทั่วไป (Thai GHQ-12)</title>
+    <style>
+        :root {
+            --primary-color: #0288d1;
+            --primary-light: #e1f5fe;
+            --text-color: #333333;
+            --bg-color: #f4f9fc;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --level-normal: #2e7d32;
+            --level-stress: #d32f2f;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #0288d1, #01579b);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        header h1 { font-size: 24px; margin-bottom: 8px; }
+        header p { font-size: 14px; opacity: 0.9; }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: #01579b;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            font-weight: bold;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; color: #444; }
+        
+        .form-control {
+            width: 100%; padding: 12px 14px; border: 1px solid var(--border-color);
+            border-radius: 8px; font-size: 14px; background-color: #fafafa;
+        }
+
+        .radio-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px;
+        }
+
+        .radio-label {
+            display: flex; align-items: center; padding: 12px 14px;
+            background-color: #fafafa; border: 1px solid var(--border-color);
+            border-radius: 8px; cursor: pointer; font-size: 14px; transition: all 0.2s;
+        }
+
+        .radio-label:hover { background-color: #f0f0f0; }
+        .radio-label input { margin-right: 10px; width: 18px; height: 18px; accent-color: var(--primary-color); }
+
+        /* ส่วนของคำถามวิเคราะห์ */
+        .q-block {
+            margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed var(--border-color);
+        }
+        .q-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        
+        .question-text { font-size: 15px; font-weight: 600; margin-bottom: 12px; color: #222; }
+        
+        .options-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+
+        .btn {
+            display: block; width: 100%; padding: 14px;
+            background: linear-gradient(135deg, #0288d1, #01579b);
+            color: white; border: none; border-radius: 8px;
+            font-size: 16px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(2, 136, 209, 0.2);
+        }
+
+        .result-container { display: none; margin-top: 20px; animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .result-box { padding: 30px 20px; border-radius: 12px; text-align: center; font-weight: bold; color: white; }
+        .result-box.normal { background-color: var(--level-normal); }
+        .result-box.stress { background-color: var(--level-stress); }
+
+        .emoji-display { font-size: 56px; margin-bottom: 12px; }
+        .result-title { font-size: 22px; margin-bottom: 8px; }
+        .result-score { font-size: 16px; margin-bottom: 15px; background: rgba(255, 255, 255, 0.2); display: inline-block; padding: 4px 15px; border-radius: 20px; }
+        .result-desc { font-size: 15px; font-weight: normal; opacity: 0.95; max-width: 550px; margin: 0 auto; text-align: left; background: rgba(0, 0, 0, 0.05); padding: 15px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>แบบสอบถามสุขภาพทั่วไป (Thai GHQ-12)</h1>
+        <p>เครื่องมือคัดกรองภาวะสุขภาพจิต วัตถุประสงค์เพื่อสำรวจสภาวะความเครียดในช่วงเวลาที่ผ่านมา</p>
+    </header>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <form id="ghqForm" action="https://script.google.com/macros/s/AKfycbwASoMa1r06A0wx4xRof8VYRkzXshE1QmUlQERijLcqjcPQFjgDu-DrHhWfQ68gw9fp/exec" method="POST" target="hidden_iframe">
+        
+        <div class="card">
+            <div class="card-title">👤 ข้อมูลทั่วไป</div>
+            <div class="form-group">
+                <label>ชื่อ-นามสกุล</label>
+                <input type="text" name="fullname" class="form-control" placeholder="กรอกชื่อและนามสกุล" required>
+            </div>
+            <div class="form-group">
+                <label>อายุ</label>
+                <input type="number" name="age" class="form-control" placeholder="กรอกอายุ" required min="1" max="120">
+            </div>
+            <div class="form-group">
+                <label>เพศ</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="gender" value="ชาย" required> ชาย</label>
+                    <label class="radio-label"><input type="radio" name="gender" value="หญิง"> หญิง</label>
+                    <label class="radio-label"><input type="radio" name="gender" value="LGBTQ+"> LGBTQ+</label>
+                    <label class="radio-label"><input type="radio" name="gender" value="ไม่ต้องการระบุ"> ไม่ต้องการระบุ</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>สถานภาพ</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="status" value="โสด" required> โสด</label>
+                    <label class="radio-label"><input type="radio" name="status" value="สมรส"> สมรส</label>
+                    <label class="radio-label"><input type="radio" name="status" value="หย่าร้าง"> หย่าร้าง</label>
+                    <label class="radio-label"><input type="radio" name="status" value="หม้าย"> หม้าย</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ระดับการศึกษา</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="education" value="ประถมศึกษา" required> ประถมศึกษา</label>
+                    <label class="radio-label"><input type="radio" name="education" value="มัธยมศึกษา"> มัธยมศึกษา</label>
+                    <label class="radio-label"><input type="radio" name="education" value="ปวส./ปวช."> ปวส./ปวช.</label>
+                    <label class="radio-label"><input type="radio" name="education" value="ปริญญาตรี"> ปริญญาตรี</label>
+                    <label class="radio-label"><input type="radio" name="education" value="สูงกว่าปริญญาตรี"> สูงกว่าปริญญาตรี</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ประเภทผู้ใช้งาน</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="user_type" value="เจ้าหน้าที่" required> เจ้าหน้าที่</label>
+                    <label class="radio-label"><input type="radio" name="user_type" value="อสม."> อสม.</label>
+                    <label class="radio-label"><input type="radio" name="user_type" value="ผู้ดูแล"> ผู้ดูแล</label>
+                    <label class="radio-label"><input type="radio" name="user_type" value="ผู้ป่วย"> ผู้ป่วย</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>อาชีพ</label>
+                <input type="text" name="career" class="form-control" placeholder="กรอกอาชีพ" required>
+            </div>
+            <div class="form-group">
+                <label>เบอร์โทรศัพท์ (ถ้ามี)</label>
+                <input type="tel" name="phone" class="form-control" placeholder="กรอกเบอร์โทรศัพท์">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">📋 ในระยะสองถึงสามสัปดาห์ที่ผ่านมา ท่านมีอาการเหล่านี้ บ่อยแค่ไหน?</div>
+            
+            <div class="q-block">
+                <div class="question-text">1. สามารถมีสมาธิจดจ่อกับสิ่งที่กำลังทำอยู่ได้</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g1" value="0" required> ก. ดีกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g1" value="0"> ข. เหมือนปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g1" value="1"> ค. น้อยกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g1" value="1"> ง. น้อยกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">2. นอนไม่หลับเพราะกังวลใจ</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g2" value="0" required> ก. ไม่เลย</label>
+                    <label class="radio-label"><input type="radio" name="g2" value="0"> ข. ไม่มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g2" value="1"> ค. ค่อนข้างมากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g2" value="1"> ง. มากกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">3. รู้สึกว่าได้ทำตัวให้เป็นประโยชน์ในเรื่องต่างๆ ได้</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g3" value="0" required> ก. มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g3" value="0"> ข. เหมือนปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g3" value="1"> ค. น้อยกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g3" value="1"> ง. น้อยกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">4. รู้สึกว่าสามารถตัดสินใจในเรื่องต่างๆ ได้</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g4" value="0" required> ก. มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g4" value="0"> ข. เหมือนปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g4" value="1"> ค. น้อยกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g4" value="1"> ง. น้อยกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">5. รู้สึกตึงเครียดอยู่ตลอดเวลา</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g5" value="0" required> ก. ไม่เลย</label>
+                    <label class="radio-label"><input type="radio" name="g5" value="0"> ข. ไม่มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g5" value="1"> ค. ค่อนข้างมากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g5" value="1"> ง. มากกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">6. รู้สึกว่าไม่สามารถที่จะเอาชนะความยากลำบากต่างๆ ได้</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g6" value="0" required> ก. ไม่เลย</label>
+                    <label class="radio-label"><input type="radio" name="g6" value="0"> ข. ไม่มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g6" value="1"> ค. ค่อนข้างมากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g6" value="1"> ง. มากกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">7. สามารถมีความสุขกับกิจกรรมในชีวิตประจำวันตามปกติได้</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g7" value="0" required> ก. มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g7" value="0"> ข. เหมือนปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g7" value="1"> ค. น้อยกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g7" value="1"> ง. น้อยกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">8. สามารถที่จะเผชิญหน้ากับปัญหาต่างๆ ของตัวเองได้</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g8" value="0" required> ก. ดีกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g8" value="0"> ข. เหมือนปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g8" value="1"> ค. น้อยกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g8" value="1"> ง. น้อยกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">9. รู้สึกไม่มีความสุขและเศร้าหมอง</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g9" value="0" required> ก. ไม่เลย</label>
+                    <label class="radio-label"><input type="radio" name="g9" value="0"> ข. ไม่มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g9" value="1"> ค. ค่อนข้างมากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g9" value="1"> ง. มากกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">10. รู้สึกเสียความมั่นใจในตัวเองไป</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g10" value="0" required> ก. ไม่เลย</label>
+                    <label class="radio-label"><input type="radio" name="g10" value="0"> ข. ไม่มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g10" value="1"> ค. ค่อนข้างมากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g10" value="1"> ง. มากกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">11. คิดว่าตัวเองเป็นคนไร้ค่า</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g11" value="0" required> ก. ไม่เลย</label>
+                    <label class="radio-label"><input type="radio" name="g11" value="0"> ข. ไม่มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g11" value="1"> ค. ค่อนข้างมากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g11" value="1"> ง. มากกว่าปกติมาก</label>
+                </div>
+            </div>
+
+            <div class="q-block">
+                <div class="question-text">12. รู้สึกมีความสุขดีตามสมควร เมื่อดูโดยรวมๆ</div>
+                <div class="options-grid">
+                    <label class="radio-label"><input type="radio" name="g12" value="0" required> ก. มากกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g12" value="0"> ข. เท่าๆ ปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g12" value="1"> ค. น้อยกว่าปกติ</label>
+                    <label class="radio-label"><input type="radio" name="g12" value="1"> ง. น้อยกว่าปกติ</label>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="ghq_score" name="ghq_score">
+        <input type="hidden" id="ghq_interpretation" name="ghq_interpretation">
+
+        <button type="submit" class="btn" id="submitBtn">📊 ส่งข้อมูลและประเมินผลสุขภาพจิต</button>
+    </form>
+
+    <div class="result-container" id="resultContainer">
+        <div class="card">
+            <div id="resultBox" class="result-box">
+                <div class="emoji-display" id="resultEmoji">😊</div>
+                <div class="result-title" id="resultTitle">ระดับสุขภาพจิต</div>
+                <div class="result-score" id="resultScoreDisplay">คะแนนรวมทั้งหมด: 0 คะแนน</div>
+                <div class="result-desc" id="resultDesc">คำแนะนำ</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('ghqForm').addEventListener('submit', function(e) {
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = "บันทึกคำตอบลงระบบสำเร็จแล้ว ✅";
+
+        let totalScore = 0;
+        
+        for (let i = 1; i <= 12; i++) {
+            const checkedRadio = document.querySelector(`input[name="g${i}"]:checked`);
+            if (checkedRadio) {
+                totalScore += parseInt(checkedRadio.value);
+            }
+        }
+        
+        let interpText = "";
+        let descHTML = "";
+        const resultBox = document.getElementById('resultBox');
+
+        if (totalScore >= 2) {
+            interpText = "มีความเครียดสูงกว่าปกติ";
+            resultBox.className = "result-box stress";
+            document.getElementById('resultEmoji').innerText = "🔴 😥";
+            document.getElementById('resultTitle').innerText = "ผลประเมิน: มีความเครียดสูงกว่าระดับปกติ";
+            descHTML = `• <b>ความหมาย:</b> ในช่วง 2-3 สัปดาห์นี้ คุณอาจเผชิญเรื่องไม่สบายใจ ร่างกายหรือจิตใจมีความเหนื่อยล้าสะสม<br>` +
+                       `• <b>คำแนะนำ:</b> ควรหาเวลาพักผ่อน ผ่อนคลายอารมณ์ คุยกับคนรอบข้าง หรือหากรู้สึกหนักใจสามารถโทรปรึกษาสายด่วนสุขภาพจิต 1323 ได้เลยครับ`;
+        } else {
+            interpText = "สุขภาพจิตปกติ";
+            resultBox.className = "result-box normal";
+            document.getElementById('resultEmoji').innerText = "🟢 😊";
+            document.getElementById('resultTitle').innerText = "ผลประเมิน: สุขภาพจิตปกติ";
+            descHTML = `• <b>ความหมาย:</b> สภาวะทางจิตใจ สมาธิ และการนอนหลับของคุณอยู่ในเกณฑ์สมดุลดีครับ<br>` +
+                       `• <b>คำแนะนำ:</b> ทำกิจกรรมที่ชอบและรักษาสุขภาพจิตที่ดีแบบนี้ไว้สม่ำเสมอครับ`;
+        }
+
+        document.getElementById('ghq_score').value = totalScore;
+        document.getElementById('ghq_interpretation').value = interpText;
+        
+        document.getElementById('resultScoreDisplay').innerText = `คะแนนรวมสะสมของคุณ: ${totalScore} คะแนน`;
+        document.getElementById('resultDesc').innerHTML = descHTML;
+
+        document.getElementById('resultContainer').style.display = 'block';
+        document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
