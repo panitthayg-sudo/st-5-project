@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบคัดกรองโรคซึมเศร้า (2Q)</title>
+    <style>
+        :root {
+            --primary-color: #00796b;
+            --primary-light: #e0f2f1;
+            --text-color: #333333;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --success-color: #2e7d32;
+            --danger-color: #c62828;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sarabun', 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, #009688, #00695c);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-light);
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 121, 107, 0.15);
+        }
+
+        .radio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            background-color: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .radio-label:hover {
+            background-color: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        .radio-label input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+
+        .question-block {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .question-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .question-text {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #222;
+        }
+
+        .options-2q {
+            display: flex;
+            gap: 15px;
+        }
+
+        .options-2q .radio-label {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #009688, #00796b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 150, 136, 0.2);
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #00796b, #004d40);
+        }
+
+        /* ส่วนแสดงผลลัพธ์แปลผล */
+        .result-container {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-box {
+            padding: 25px 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .result-box.normal {
+            background-color: #e8f5e9;
+            color: var(--success-color);
+            border: 2px solid #a5d6a7;
+        }
+
+        .result-box.risk {
+            background-color: #ffebee;
+            color: var(--danger-color);
+            border: 2px solid #ef9a9a;
+        }
+
+        .emoji-display {
+            font-size: 54px;
+            margin-bottom: 12px;
+        }
+
+        .result-title {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .result-desc {
+            font-size: 14px;
+            font-weight: normal;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>แบบคัดกรองโรคซึมเศ้า 2 คำถาม (2Q)</h1>
+        <p>ระบบประเมินภาวะอารมณ์เบื้องต้นอัตโนมัติ</p>
+    </header>
+
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+    <form id="mentalForm" action="https://script.google.com/macros/s/AKfycbyyb1CMomh1j_cDI9XUtmrYq5v4nulY2QlR_dde5iOf8vdeOtbUbWFzQd84Q-QsDFKZOg/exec" method="POST" target="hidden_iframe">
+        
+        <div class="card">
+            <div class="card-title">👤 ข้อมูลทั่วไป</div>
+            
+            <div class="form-group">
+                <label for="fullname">ชื่อ-นามสกุล</label>
+                <input type="text" id="fullname" name="fullname" class="form-control" placeholder="กรอกชื่อและนามสกุล" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">อายุ</label>
+                <input type="number" id="age" name="age" class="form-control" placeholder="กรอกอายุ" required min="1" max="120">
+            </div>
+
+            <div class="form-group">
+                <label>เพศ</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="gender" value="ชาย" required> ชาย</label>
+                    <label class="radio-label"><input type="radio" name="gender" value="หญิง"> หญิง</label>
+                    <label class="radio-label"><input type="radio" name="gender" value="LGBTQ+"> LGBTQ+</label>
+                    <label class="radio-label"><input type="radio" name="gender" value="ไม่ต้องการระบุ"> ไม่ต้องการระบุ</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>สถานภาพ</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="status" value="โสด" required> โสด</label>
+                    <label class="radio-label"><input type="radio" name="status" value="สมรส"> สมรส</label>
+                    <label class="radio-label"><input type="radio" name="status" value="หย่าร้าง"> หย่าร้าง</label>
+                    <label class="radio-label"><input type="radio" name="status" value="หม้าย"> หม้าย</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ระดับการศึกษา</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="education" value="ประถมศึกษา" required> ประถมศึกษา</label>
+                    <label class="radio-label"><input type="radio" name="education" value="มัธยมศึกษา"> มัธยมศึกษา</label>
+                    <label class="radio-label"><input type="radio" name="education" value="ปวส./ปวช."> ปวส./ปวช.</label>
+                    <label class="radio-label"><input type="radio" name="education" value="ปริญญาตรี"> ปริญญาตรี</label>
+                    <label class="radio-label"><input type="radio" name="education" value="สูงกว่าปริญญาตรี"> สูงกว่าปริญญาตรี</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ประเภทผู้ใช้งาน</label>
+                <div class="radio-grid">
+                    <label class="radio-label"><input type="radio" name="user_type" value="เจ้าหน้าที่" required> เจ้าหน้าที่</label>
+                    <label class="radio-label"><input type="radio" name="user_type" value="อสม."> อสม.</label>
+                    <label class="radio-label"><input type="radio" name="user_type" value="ผู้ดูแล"> ผู้ดูแล</label>
+                    <label class="radio-label"><input type="radio" name="user_type" value="ผู้ป่วย"> ผู้ป่วย</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="career">อาชีพ</label>
+                <input type="text" id="career" name="career" class="form-control" placeholder="กรอกอาชีพของคุณ" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">เบอร์โทร (ถ้ามี)</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="เช่น 0812345678">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">🧠 ในช่วง 2 สัปดาห์ที่ผ่านมารวมวันนี้ ท่านมีอาการเหล่านี้หรือไม่?</div>
+            
+            <div class="question-block">
+                <div class="question-text">1. ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก หดหู่ เศร้า หรือท้อแท้สิ้นหวัง หรือไม่</div>
+                <div class="options-2q">
+                    <label class="radio-label"><input type="radio" name="q1" value="มี" required> มี</label>
+                    <label class="radio-label"><input type="radio" name="q1" value="ไม่มี"> ไม่มี</label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-text">2. ใน 2 สัปดาห์ที่ผ่านมา รวมวันนี้ ท่านรู้สึก เบื่อ ทำอะไรก็ไม่เพลิดเพลิน หรือไม่</div>
+                <div class="options-2q">
+                    <label class="radio-label"><input type="radio" name="q2" value="มี" required> มี</label>
+                    <label class="radio-label"><input type="radio" name="q2" value="ไม่มี"> ไม่มี</label>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="interpretation" name="interpretation">
+
+        <button type="submit" class="btn" id="submitBtn">📊 ส่งข้อมูลและดูผลประเมิน</button>
+    </form>
+
+    <div class="result-container" id="resultContainer">
+        <div class="card">
+            <div id="resultBox" class="result-box">
+                <div class="emoji-display" id="resultEmoji">😊</div>
+                <div class="result-title" id="resultTitle">ผลการประเมิน</div>
+                <div class="result-desc" id="resultDesc">รายละเอียดผลลัพธ์</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('mentalForm').addEventListener('submit', function(e) {
+        // ปล่อยให้ฟอร์มรันส่งค่าเข้า iframe เงียบๆ หลังบ้าน
+        
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = "ส่งข้อมูลเรียบร้อยแล้ว ✅";
+
+        const q1 = document.querySelector('input[name="q1"]:checked').value;
+        const q2 = document.querySelector('input[name="q2"]:checked').value;
+        
+        let interpretationText = "";
+        const resultBox = document.getElementById('resultBox');
+
+        // คำนวณแปลผลตามรูปภาพเกณฑ์มาตรฐาน 2Q
+        if (q1 === "ไม่มี" && q2 === "ไม่มี") {
+            interpretationText = "ปกติ ไม่เป็นโรคซึมเศร้า";
+            resultBox.className = "result-box normal"; 
+            document.getElementById('resultEmoji').innerText = "🟢 😊";
+            document.getElementById('resultTitle').innerText = "ผลการประเมิน: ปกติ";
+            document.getElementById('resultDesc').innerText = "ยินดีด้วยค่ะ คุณไม่มีอาการเสี่ยงของโรคซึมเศร้าในระยะนี้ รักษาสุขภาพจิตใจให้แจ่มใสเสมอนะคะ";
+        } else {
+            interpretationText = "เป็นผู้มีความเสี่ยง หรือมีแนวโน้มที่จะเป็นโรคซึมเศร้า";
+            resultBox.className = "result-box risk"; 
+            document.getElementById('resultEmoji').innerText = "🔴 😥";
+            document.getElementById('resultTitle').innerText = "ผลการประเมิน: เป็นผู้มีความเสี่ยง";
+            document.getElementById('resultDesc').innerText = "คุณมีแนวโน้มที่จะเป็นโรคซึมเศร้าเบื้องต้น แนะนำให้ประเมินต่อด้วยแบบประเมินโรคซึมเศร้า 9Q หรือปรึกษาเจ้าหน้าที่สาธารณสุขใกล้บ้านเพื่อดูแลใจต่อไปค่ะ";
+        }
+
+        // แนบข้อความแปลผลลงในช่อง Input ซ่อนเพื่อยิงเข้า Google Sheets
+        document.getElementById('interpretation').value = interpretationText;
+
+        // สั่งเปิดกล่องสีเขียว/สีแดงขึ้นมา และเลื่อนหน้าจอลงมานุ่มๆ
+        document.getElementById('resultContainer').style.display = 'block';
+        document.getElementById('resultContainer').scrollIntoView({ behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>
